@@ -1,0 +1,56 @@
+
+# 编译输出目录
+/target/
+/build/
+/out/
+/bin/
+
+# IDE相关文件
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+
+# 日志文件
+*.log
+logs/
+
+# 依赖管理
+*.jar
+*.war
+*.ear
+*.class
+dependency-reduced-pom.xml
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 环境配置文件
+.env
+*.properties
+
+# 测试相关
+/test-output/
+/temp/
+
+# Maven忽略文件
+mvnw
+mvnw.cmd
+.mvn/
+
+# Eclipse忽略文件
+.metadata/
+.factorypath
+.springBeans
+
+# NetBeans忽略文件
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
