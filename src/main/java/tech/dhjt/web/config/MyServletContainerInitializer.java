@@ -9,11 +9,14 @@ import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import javax.servlet.ServletRegistration.Dynamic;
 import javax.servlet.annotation.HandlesTypes;
 
 import tech.dhjt.web.filter.UserFilter;
 import tech.dhjt.web.listener.UserListener;
 import tech.dhjt.web.service.HelloService;
+import tech.dhjt.web.servlet.HelloAsyncServlet;
+import tech.dhjt.web.servlet.HelloServlet;
 import tech.dhjt.web.servlet.UserServlet;
 
 //容器启动的时候会将@HandlesTypes指定的这个类型下面的子类（实现类，子接口等）传递过来；
@@ -35,14 +38,20 @@ public class MyServletContainerInitializer implements ServletContainerInitialize
     @Override
     public void onStartup(Set<Class<?>> arg0, ServletContext sc) throws ServletException {
         System.out.println("感兴趣的类型：");
-        for (Class<?> claz : arg0) {
-            System.out.println(claz);
+        if (arg0 != null) {
+            for (Class<?> claz : arg0) {
+                System.out.println(claz);
+            }
         }
 
         // 注册组件 ServletRegistration
         ServletRegistration.Dynamic servlet = sc.addServlet("userServlet", new UserServlet());
         // 配置servlet的映射信息
         servlet.addMapping("/user");
+        sc.addServlet("helloServlet", new HelloServlet()).addMapping("/hello");
+        Dynamic helloAsyncServlet = sc.addServlet("helloAsyncServlet", new HelloAsyncServlet());
+        helloAsyncServlet.setAsyncSupported(true);
+        helloAsyncServlet.addMapping("/asyncHello");
 
         // 注册Listener
         sc.addListener(UserListener.class);
